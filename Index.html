@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Cricket Live Scoreboard</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#071326;color:white;
+ font-family:Arial,sans-serif;
+}
+.header{
+ background:#101f39;padding:16px;
+ text-align:center;border-bottom:3px solid #f5b82e;
+}
+.header h2{margin:0;color:#f5b82e}
+.live{color:#ff4747;font-weight:bold;margin-top:8px}
+.score{
+ max-width:650px;margin:30px auto;
+ padding:20px;background:linear-gradient(135deg,#142b50,#071326);
+ border:2px solid #d5a62e;border-radius:15px;
+ text-align:center;
+}
+.teams{
+ display:flex;justify-content:space-around;
+ align-items:center;gap:10px;
+}
+.team{font-size:20px;font-weight:bold}
+.vs{color:#f5b82e}
+.runs{font-size:48px;font-weight:bold;margin:20px 0}
+.details{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:10px;margin-top:20px;
+}
+.item{
+ background:#203757;padding:15px;border-radius:8px;
+}
+.item span{display:block;color:#f5b82e;margin-top:7px}
+.players{
+ margin-top:20px;background:#203757;
+ padding:15px;border-radius:8px;text-align:left;
+}
+.footer{color:#aaa;text-align:center;padding:20px}
+</style>
+</head>
+<body>
+<div class="header">
+ <h2>🏏 CRICKET LIVE SCORE</h2>
+ <div class="live">● LIVE SCOREBOARD</div>
+</div>
+
+<div class="score">
+ <div class="teams">
+  <div class="team">🇮🇳 INDIA</div>
+  <div class="vs">VS</div>
+  <div class="team">🇦🇺 AUSTRALIA</div>
+ </div>
+
+ <div class="runs">0/0</div>
+ <h3>Overs: 0.0</h3>
+
+ <div class="details">
+  <div class="item">Run Rate<span>0.00</span></div>
+  <div class="item">Target<span>--</span></div>
+  <div class="item">Innings<span>1st Innings</span></div>
+  <div class="item">Partnership<span>0 Runs</span></div>
+ </div>
+
+ <div class="players">
+  <h3>🏏 BATSMEN</h3>
+  <p>Batsman 1: -- (0)</p>
+  <p>Batsman 2: -- (0)</p>
+  <hr>
+  <h3>⚾ BOWLER</h3>
+  <p>Bowler: --</p>
+ </div>
+</div>
+
+<div class="footer">
+ Professional Cricket Scoreboard | YouTube Live
+</div>
+</body>
+</html>
