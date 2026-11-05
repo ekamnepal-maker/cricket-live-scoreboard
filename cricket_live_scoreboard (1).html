@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cricket Live Scoreboard</title>
+<style>
+:root{--bg:#071426;--panel:#10243d;--panel2:#163454;--lime:#b8f34a;--cyan:#39d5d0;--muted:#a9bdd2;--white:#f7fbff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#18395a 0,#071426 55%);font-family:Arial,Helvetica,sans-serif;color:var(--white);min-height:100vh}
+.wrap{max-width:1100px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.brand{font-weight:900;letter-spacing:.8px;font-size:clamp(18px,3vw,28px)}.live{color:#ff6969;font-weight:800;letter-spacing:1.5px}.live:before{content:"";display:inline-block;width:9px;height:9px;background:#ff4e62;border-radius:50%;margin-right:8px;box-shadow:0 0 12px #ff4e62}
+.hero{background:linear-gradient(120deg,#15395b,#0c1e35 70%);border:1px solid #2a4d6c;border-radius:24px;padding:clamp(18px,4vw,36px);box-shadow:0 18px 55px #0006}
+.meta{text-align:center;color:var(--muted);font-size:13px;letter-spacing:1.4px;text-transform:uppercase}.match{text-align:center;font-size:clamp(17px,3vw,23px);font-weight:800;margin:8px 0 24px}
+.scoreline{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:15px}.team{text-align:center}.flag{font-size:clamp(36px,7vw,58px)}.teamname{font-size:clamp(16px,3vw,22px);font-weight:900;margin:8px 0}.runs{font-size:clamp(35px,8vw,68px);font-weight:900;letter-spacing:-2px}.overs{color:var(--muted);font-size:15px;margin-top:4px}.vs{font-size:15px;color:var(--muted);font-weight:900}
+.status{margin:25px auto 0;background:#07182b;border:1px solid #2a4d6c;border-radius:14px;padding:13px;text-align:center;font-weight:700;color:var(--lime)}
+.details{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.detail{background:#0a1b30;border:1px solid #244461;border-radius:14px;padding:15px;text-align:center}.detail small{display:block;color:var(--muted);margin-bottom:7px}.detail strong{font-size:20px}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}.panel{background:var(--panel);border:1px solid #244461;border-radius:18px;padding:18px}.panel h2{font-size:17px;margin:0 0 14px}.player{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #29435c}.player:last-child{border:0}.player span:last-child{font-weight:800}
+.controls{margin-top:18px;background:#0b1d32;border:1px solid #244461;border-radius:18px;padding:18px}.controls h2{margin:0 0 12px;font-size:18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.btn{border:0;border-radius:11px;padding:13px 8px;font-weight:900;background:var(--panel2);color:white;font-size:16px}.btn:active{transform:scale(.98)}.btn.primary{background:var(--lime);color:#14220a}.btn.danger{background:#9f3447}.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}.fields input,.fields select{width:100%;padding:12px;border-radius:10px;border:1px solid #355675;background:#07182b;color:white;font-size:15px}.hint{color:var(--muted);font-size:12px;line-height:1.5;margin-top:12px}.footer{text-align:center;color:#8299b1;font-size:12px;padding:22px}
+@media(max-width:650px){.wrap{padding:13px}.panels{grid-template-columns:1fr}.details{gap:7px}.detail{padding:11px 5px}.detail strong{font-size:17px}.grid{grid-template-columns:repeat(4,1fr)}.btn{font-size:14px;padding:13px 3px}.top{margin-bottom:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="top"><div class="brand">🏏 CRICKET <span style="color:var(--lime)">LIVE</span> SCOREBOARD</div><div class="live">LIVE MATCH</div></div>
+ <section class="hero">
+  <div class="meta">PROFESSIONAL BROADCAST SCOREBOARD</div>
+  <div class="match" id="matchName">INDIA TOUR • T20 MATCH</div>
+  <div class="scoreline">
+   <div class="team"><div class="flag">🇮🇳</div><div class="teamname" id="teamA">INDIA</div><div class="runs" id="scoreA">0/0</div><div class="overs"><span id="oversA">0.0</span> OVERS</div></div>
+   <div class="vs">VS</div>
+   <div class="team"><div class="flag">🇵🇰</div><div class="teamname" id="teamB">PAKISTAN</div><div class="runs" id="scoreB">0/0</div><div class="overs"><span id="oversB">0.0</span> OVERS</div></div>
+  </div>
+  <div class="status" id="status">MATCH STARTING SOON • मैच जल्द शुरू होगा</div>
+  <div class="details">
+   <div class="detail"><small>CRR • रन रेट</small><strong id="crr">0.00</strong></div>
+   <div class="detail"><small>TARGET • लक्ष्य</small><strong id="target">—</strong></div>
+   <div class="detail"><small>NEED • बाकी रन</small><strong id="need">—</strong></div>
+  </div>
+ </section>
+ <div class="panels">
+  <section class="panel"><h2>🏏 BATTING • बल्लेबाज़ी</h2><div class="player"><span id="striker">Batter 1 *</span><span id="strikerStat">0 (0)</span></div><div class="player"><span id="nonStriker">Batter 2</span><span id="nonStrikerStat">0 (0)</span></div></section>
+  <section class="panel"><h2>🎯 BOWLING • गेंदबाज़ी</h2><div class="player"><span id="bowler">Bowler 1</span><span id="bowlerStat">0-0 (0.0)</span></div><div class="player"><span>LAST BALL • पिछली गेंद</span><span id="lastBall">—</span></div></section>
+ </div>
+ <section class="controls">
+  <h2>Score Controls • स्कोर अपडेट करें</h2>
+  <div class="grid">
+   <button class="btn primary" onclick="add(0)">DOT</button><button class="btn" onclick="add(1)">+1 RUN</button><button class="btn" onclick="add(2)">+2 RUN</button><button class="btn" onclick="add(3)">+3 RUN</button>
+   <button class="btn" onclick="add(4)">FOUR 4</button><button class="btn" onclick="add(6)">SIX 6</button><button class="btn" onclick="add(1,true)">WIDE +1</button><button class="btn danger" onclick="wicket()">WICKET</button>
+  </div>
+  <div class="fields">
+   <input id="aName" value="INDIA" aria-label="Team A name" placeholder="Team 1 name">
+   <input id="bName" value="PAKISTAN" aria-label="Team B name" placeholder="Team 2 name">
+   <input id="matchInput" value="INDIA TOUR • T20 MATCH" aria-label="Match title" placeholder="Match title">
+   <input id="targetInput" type="number" min="1" placeholder="Target (optional)">
+   <input id="bat1" value="Batter 1" placeholder="Striker name">
+   <input id="bat2" value="Batter 2" placeholder="Non-striker name">
+   <input id="bowl" value="Bowler 1" placeholder="Bowler name">
+   <input id="statusInput" value="MATCH IN PROGRESS • मैच जारी है" placeholder="Match status">
+  </div>
+  <div class="grid" style="margin-top:10px">
+   <button class="btn primary" onclick="applyNames()">UPDATE INFO</button>
+   <button class="btn" onclick="undo()">UNDO</button>
+   <button class="btn danger" onclick="resetMatch()">RESET</button>
+   <button class="btn" onclick="toggleEdit()">HIDE CONTROLS</button>
+  </div>
+  <p class="hint">यह संस्करण मैन्युअल स्कोर अपडेट करता है और इसी डिवाइस में सेव रहता है। अपने PRISM Live Studio में वेबसाइट को Browser/Screen source के रूप में खोलें। Automatic live match data के लिए बाद में Cricket API key जोड़नी होगी।</p>
+ </section>
+ <div class="footer">CRICKET LIVE SCOREBOARD • MADE FOR YOUTUBE LIVE</div>
+</div>
+<script>
+let s={runs:0,w:0,balls:0,target:0,last:'—',bat1:0,bat2:0,bowlRuns:0,bowlW:0,batBalls1:0,batBalls2:0,history:[]};
+const $=id=>document.getElementById(id);
+function overs(b){return Math.floor(b/6)+'.'+(b%6)}
+function save(){localStorage.setItem('cricketScoreboard',JSON.stringify(s))}
+function render(){
+ $('scoreA').textContent=s.runs+'/'+s.w;$('oversA').textContent=overs(s.balls);
+ $('crr').textContent=s.balls?(s.runs/(s.balls/6)).toFixed(2):'0.00';
+ $('target').textContent=s.target||'—';$('need').textContent=s.target?Math.max(0,s.target-s.runs):'—';
+ $('strikerStat').textContent=s.bat1+' ('+s.batBalls1+')';$('nonStrikerStat').textContent=s.bat2+' ('+s.batBalls2+')';
+ $('bowlerStat').textContent=s.bowlW+'-'+s.bowlRuns+' ('+overs(s.balls)+')';$('lastBall').textContent=s.last;
+ $('status').textContent=$('statusInput').value||'MATCH IN PROGRESS';
+ save();
+}
+function snapshot(){s.history.push(JSON.stringify({...s,history:[]}));if(s.history.length>30)s.history.shift()}
+function add(n,extra=false){snapshot();s.runs+=n;s.bowlRuns+=n;s.last=extra?'Wd':String(n);if(!extra){s.balls++;s.batBalls1++;s.bat1+=n;if(n%2)swap();if(s.balls%6===0)swap()}render()}
+function swap(){[s.bat1,s.bat2]=[s.bat2,s.bat1];[s.batBalls1,s.batBalls2]=[s.batBalls2,s.batBalls1];[$('bat1').value,$('bat2').value]=[$('bat2').value,$('bat1').value]}
+function wicket(){snapshot();s.w++;s.balls++;s.bowlW++;s.last='W';s.batBalls1++;render()}
+function undo(){if(!s.history.length)return;let h=JSON.parse(s.history.pop());h.history=s.history;s=h;render()}
+function applyNames(){$('teamA').textContent=$('aName').value.toUpperCase();$('teamB').textContent=$('bName').value.toUpperCase();$('matchName').textContent=$('matchInput').value;$('striker').textContent=$('bat1').value+' *';$('nonStriker').textContent=$('bat2').value;$('bowler').textContent=$('bowl').value;s.target=Number($('targetInput').value)||0;render()}
+function resetMatch(){if(confirm('Reset the match score?')){s={runs:0,w:0,balls:0,target:Number($('targetInput').value)||0,last:'—',bat1:0,bat2:0,bowlRuns:0,bowlW:0,batBalls1:0,batBalls2:0,history:[]};render()}}
+function toggleEdit(){document.querySelector('.controls').style.display='none';}
+try{let old=localStorage.getItem('cricketScoreboard');if(old)s=JSON.parse(old)}catch(e){}
+render();
+</script>
+</body></html>
